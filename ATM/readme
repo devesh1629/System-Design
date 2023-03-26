@@ -1,0 +1,20 @@
+Low Level Design of an ATM Machine
+
+State Design Pattern is used as the ATM changes its behaviour based on different states.
+
+Chain of Responsibility Design Pattern is used to manage cash flow within the ATM.
+Chain of responsibility pattern is used to achieve loose coupling in software design where a request
+from the client is passed to a chain of objects to process them. The system has a chain of responsibility
+in the flow on notes of different denominations.
+
+ATMState is an abstract class having multiple states within the ATM.
+The methods of this abstract classes are overridden by other classes for detailed implementation.
+
+ATMRoom is the main class were the process starts.
+ATMRoom has 2 data members -> ATM and User
+User has a Card and BankAccount
+ATM has ATMStates, balance, number of notes of different denominations.
+
+ATMWithdrawal package manages the flow of cash in ATM by optimising the use of various types of notes.
+It uses Chain of responsibility design pattern.
+
