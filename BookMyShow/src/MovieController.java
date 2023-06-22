@@ -8,7 +8,6 @@ import java.util.Map;
 public class MovieController {
     Map<City, List<Movie>> moviesInCity;
     List<Movie> allMovies;
-
     MovieController() {
         moviesInCity = new HashMap<>();
         allMovies = new ArrayList<>();
