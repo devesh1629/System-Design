@@ -1,44 +1,91 @@
 import enums.City;
+import enums.Movie;
 import enums.SeatCategory;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
+import java.util.*;
 
 public class BookMyShow {
     MovieController movieController;
     TheatreController theatreController;
+    Utils utils;
     BookMyShow() {
         movieController = new MovieController();
         theatreController = new TheatreController();
+        Utils utils;
     }
     public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
         BookMyShow bookMyShow = new BookMyShow();
 
         bookMyShow.initialize();
 
-        bookMyShow.createBooking(City.DELHI, "AVENGERS");
-        bookMyShow.createBooking(City.BANGALORE, "RRR");
-
-    }
-
-    private void createBooking(City city, String movieName) {
-        List<Movie> movies = movieController.getMoviesByCity(city);
-
-        Movie interestedMovie = null;
-        for(Movie movie : movies) {
-            if((movie.getMovieName()).equals(movieName))
-                interestedMovie  = movie;
+        while(true) {
+            System.out.println("Choose City: " + City.DELHI + " or " + City.BANGALORE + " or " + City.MUMBAI);
+            String userCity = in.next();
+            if(userCity.equals("X")) {
+                System.out.println("Booking Closed");
+                break;
+            }
+            bookMyShow.createBooking(in, userCity);
         }
-        Map<Theatre, List<Show>> showsTheatreWise = theatreController.getAllShows(interestedMovie, city);
     }
+    public void createBooking(Scanner in, String userCity) {
+        City city = this.utils.getCityByName(userCity);
+        if(city == null) {
+            System.out.println("Chosen city is not available currently. Try again");
+            return;
+        }
+        System.out.println(city);
+        System.out.println("Choose Movie: RRR or AVENGERS or PUSHPA");
+        String userMovie = in.next();
+        Movie movie  = this.utils.getMovieByName(userMovie);
+        if(movie == null) {
+            System.out.println("Chosen movie is not available currently. Try again");
+            return;
+        }
+        Map<Theatre, List<Show>> optionsAvailable = theatreController.getAllShows(movie, city);
+        System.out.println("Theatres available are: ");
+        for(Theatre theatre : optionsAvailable.keySet()) {
+            System.out.print(theatre.getTheatreId() + " ");
+        }
 
+        int chosenTheatreId = in.nextInt();
+        Theatre chosenTheatre = theatreController.getTheatreById(chosenTheatreId);
+        List<Show> shows = optionsAvailable.get(chosenTheatre);
+        System.out.println("Shows available are: ");
+        for(Show show : shows)
+            System.out.println("Screen is: " + show.getScreen() + " startTime: " + show.getShowStartTime() + " . Id: "  + show.getShowId());
+
+
+        int chosenShowId = in.nextInt();
+        Show chosenShow = chosenTheatre.getShowById(chosenShowId);
+        Screen chosenScreen = chosenShow.getScreen();
+        System.out.println("Enter number of seats to be booked: ");
+
+        int numberOfSeats = in.nextInt();
+        System.out.println("Seats available are: ");
+        for(Seat seat : chosenScreen.getSeats())
+            System.out.println("Category: " + seat.getSeatCategory() + " " + seat.getSeatId());
+        Set<Seat> chosenSeats = new HashSet<>();
+        for(int i=0; i<numberOfSeats; i++) {
+            int chosenSeatId = in.nextInt();
+            Seat chosenSeat = chosenScreen.getSeatById(chosenSeatId);
+            chosenSeats.add(chosenSeat);
+        }
+        if(!chosenShow.setBookedSeatIds(chosenSeats)) {
+            System.out.println("Seats unavailable");
+            return;
+        }
+        System.out.println("Enter payment id");
+        int paymentId = in.nextInt();
+
+        System.out.println("Congratulations, your booking is done");
+
+    }
     private void initialize() {
         createMovies();
         createTheatre();
     }
-
     private void createTheatre() {
         Movie avengers = movieController.getMovieByName("AVENGERS");
         Movie rrr = movieController.getMovieByName("RRR");
@@ -111,19 +158,11 @@ public class BookMyShow {
     }
 
     private void createMovies() {
-        Movie avengers = new Movie();
-        avengers.setMovieId(1);
-        avengers.setMovieName("AVENGERS");
-        avengers.setMovieDuration(180);
-
-        Movie rrr = new Movie();
-        rrr.setMovieId(2);
-        rrr.setMovieName("RRR");
-        rrr.setMovieDuration(150);
-
-        movieController.addMovie(avengers, City.DELHI);
-        movieController.addMovie(avengers, City.BANGALORE);
-        movieController.addMovie(rrr, City.DELHI);
-        movieController.addMovie(rrr, City.BANGALORE);
+        movieController.addMovie(Movie.AVENGERS, City.DELHI);
+        movieController.addMovie(Movie.AVENGERS, City.BANGALORE);
+        movieController.addMovie(Movie.RRR, City.DELHI);
+        movieController.addMovie(Movie.RRR, City.BANGALORE);
+        movieController.addMovie(Movie.AVENGERS, City.MUMBAI);
+        movieController.addMovie(Movie.PUSHPA, City.BANGALORE);
     }
 }

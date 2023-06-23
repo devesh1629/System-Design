@@ -1,31 +1,35 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Booking {
+    int bookingId;
     Show show;
-    List<Seat> bookedSeats = new ArrayList<>();
+    Set<Seat> bookedSeats = new HashSet<>();
     Payment payment;
-
+    public int getBookingId() {
+        return bookingId;
+    }
+    public void setBookingId(int bookingId) {
+        this.bookingId = bookingId;
+    }
     public Show getShow() {
         return show;
     }
-
     public void setShow(Show show) {
         this.show = show;
     }
-
-    public List<Seat> getBookedSeats() {
+    public Set<Seat> getBookedSeats() {
         return bookedSeats;
     }
-
-    public void setBookedSeats(List<Seat> bookedSeats) {
+    public boolean setBookedSeats(Set<Seat> bookedSeats) {
+        if(!show.setBookedSeatIds(bookedSeats))
+            return false;
         this.bookedSeats = bookedSeats;
+        return true;
     }
-
     public Payment getPayment() {
         return payment;
     }
-
     public void setPayment(Payment payment) {
         this.payment = payment;
     }

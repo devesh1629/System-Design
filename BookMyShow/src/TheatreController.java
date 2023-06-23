@@ -1,4 +1,5 @@
 import enums.City;
+import enums.Movie;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,7 +9,6 @@ import java.util.Map;
 public class TheatreController {
     Map<City, List<Theatre>> cityTheatre;
     List<Theatre> allTheatres;
-
     TheatreController() {
         cityTheatre = new HashMap<>();
         allTheatres = new ArrayList<>();
@@ -30,7 +30,7 @@ public class TheatreController {
             List<Show> shows = theatre.getShows();
 
             for(Show show : shows) {
-                if(show.movie.getMovieId() == movie.getMovieId()) {
+                if(show.movie.name().equals(movie.name())) {
                     movieShows.add(show);
                 }
             }
@@ -38,6 +38,14 @@ public class TheatreController {
                 theatreShows.put(theatre, movieShows);
         }
         return theatreShows;
+    }
+
+    Theatre getTheatreById(int id) {
+        for(Theatre theatre : allTheatres) {
+            if(theatre.getTheatreId() == id)
+                return theatre;
+        }
+        return null;
     }
 
 }

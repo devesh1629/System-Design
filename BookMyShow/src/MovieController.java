@@ -1,4 +1,5 @@
 import enums.City;
+import enums.Movie;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,28 +13,23 @@ public class MovieController {
         moviesInCity = new HashMap<>();
         allMovies = new ArrayList<>();
     }
-
     void addMovie(Movie movie, City city) {
         allMovies.add(movie);
         List<Movie> movies = moviesInCity.getOrDefault(city, new ArrayList<>());
         movies.add(movie);
         moviesInCity.put(city, movies);
     }
-
     Movie getMovieByName(String movieName) {
         for(Movie movie : allMovies) {
-            if(movie.getMovieName().equals(movieName))
+            if(movie.name().equals(movieName))
                 return movie;
         }
         return null;
     }
-
     List<Movie> getMoviesByCity(City city) {
         return moviesInCity.get(city);
     }
-
     void removeMovie(City city, Movie movie) {
         moviesInCity.get(city).remove(movie);
     }
-
 }
