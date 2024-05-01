@@ -1,0 +1,14 @@
+COMPOSITE DESIGN PATTERN:
+
+The Composite design pattern is a structural design pattern where we have an object inside an object.
+This pattern creates a tree structure of a group of objects.
+
+How to implement Composite Pattern ?
+It is super easy to implement the Composite design pattern.
+Each Composite object (non-leaf only) will have a list of objects of its own base type.
+The leaf class does not have any child object whereas the non-leaf class is having a list of composite objects (leaf + non-leaf).
+
+
+LLD: https://drive.google.com/file/d/1Gk6Ndr30U8AGDyNVVpOeWm8X12SNRv_v/view?usp=sharing
+
+https://medium.com/@agarwaldevesh.08/file-system-composite-design-pattern-9f877ac5babb

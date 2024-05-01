@@ -28,12 +28,13 @@ public class Game {
     }
 
     public void startGame() {
+        System.out.println("Starting a new game with 2 players: p1 and p2");
         while (winner == null) {
             Player playerTurn = findPlayerTurn();
             int diceNumbers = dice.rollDice();
 
             int playerNewPosition = playerTurn.currentPosition + diceNumbers;
-            playerNewPosition = jumpCheck(playerNewPosition);
+            playerNewPosition = jumpCheck(playerNewPosition, playerTurn);
             playerTurn.currentPosition = playerNewPosition;
 
             System.out.println("Player turn is " + playerTurn.id + " New Position is: " + playerNewPosition);
@@ -49,14 +50,23 @@ public class Game {
         return player;
     }
 
-    private int jumpCheck(int position) {
+    private int jumpCheck(int position, Player player) {
         if(position >= board.cells.length*board.cells.length - 1)
             return position;
 
         Cell cell = board.getCell(position);
         if(cell.jump != null && cell.jump.start == position) {
             String jumpBy = (cell.jump.start < cell.jump.end) ? "Ladder" : "Snake";
-            System.out.println("Jump done by " + jumpBy);
+            switch (jumpBy) {
+                case "Ladder":
+                    System.out.println("Player " + player.id + " Climbed a Ladder");
+                    break;
+                case "Snake":
+                    System.out.println("Player " + player.id + " Bitten by Snake");
+                    break;
+                default:
+                    System.out.println("Some error occurred");
+            }
             return cell.jump.end;
         }
         return position;
