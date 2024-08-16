@@ -53,9 +53,31 @@ public class Board
         }
     }
 
-    Cell getCell(int cellNumber) {
+    private Cell getCell(int cellNumber) {
         int row = cellNumber / cells.length;
         int column = cellNumber % cells.length;
         return cells[row][column];
+    }
+
+    public int moveToNextPosition(int position) {
+        if(position >= cells.length * cells.length - 1)
+            return position;
+
+        Cell cell = getCell(position);
+        if(cell.jump != null && cell.jump.start == position) {
+            String jumpBy = (cell.jump.start < cell.jump.end) ? "Ladder" : "Snake";
+            switch (jumpBy) {
+                case "Ladder":
+                    System.out.println(" Climbed a Ladder");
+                    break;
+                case "Snake":
+                    System.out.println(" Bitten by Snake");
+                    break;
+                default:
+                    System.out.println("Some error occurred");
+            }
+            return cell.jump.end;
+        }
+        return position;
     }
 }
