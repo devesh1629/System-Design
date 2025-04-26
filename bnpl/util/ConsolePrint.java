@@ -1,4 +1,4 @@
-package util;
+package bnpl.util;
 
 public class ConsolePrint {
 

@@ -1,9 +1,6 @@
-package util;
+package bnpl.util;
 
-import services.DueService;
-import services.InventoryService;
-import services.OrderService;
-import services.UserService;
+import bnpl.services.*;
 
 public class ServiceFactory {
 

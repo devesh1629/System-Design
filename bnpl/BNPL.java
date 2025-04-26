@@ -1,11 +1,8 @@
-import models.PaymentMethod;
-import models.Product;
-import models.User;
-import services.DueService;
-import services.InventoryService;
-import services.OrderService;
-import util.ServiceFactory;
-import services.UserService;
+package bnpl;
+
+import bnpl.models.*;
+import bnpl.services.*;
+import bnpl.util.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;

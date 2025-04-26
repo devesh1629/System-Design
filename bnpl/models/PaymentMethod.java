@@ -1,4 +1,4 @@
-package models;
+package bnpl.models;
 
 public enum PaymentMethod {
 

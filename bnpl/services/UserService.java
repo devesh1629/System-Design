@@ -1,7 +1,7 @@
-package services;
+package bnpl.services;
 
-import models.User;
-import util.ConsolePrint;
+import bnpl.models.*;
+import bnpl.util.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;

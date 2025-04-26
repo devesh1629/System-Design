@@ -1,18 +1,12 @@
-package services;
+package bnpl.services;
 
-import models.Order;
-import models.PaymentMethod;
-import models.Product;
-import models.User;
-import util.ConsolePrint;
-import util.DateConverter;
-import util.ServiceFactory;
+import bnpl.models.*;
+import bnpl.util.*;
 
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 public class OrderService {
 

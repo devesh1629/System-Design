@@ -1,10 +1,7 @@
-package services;
+package bnpl.services;
 
-import models.Order;
-import models.User;
-import util.ConsolePrint;
-import util.DateConverter;
-import util.ServiceFactory;
+import bnpl.models.*;
+import bnpl.util.*;
 
 import java.time.LocalDate;
 import java.util.List;
